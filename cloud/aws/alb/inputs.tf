@@ -142,6 +142,12 @@ variable "latency_time_aggregator" {
   default     = "min"
 }
 
+variable "latency_time_aggregator_warning" {
+  description = "Monitor aggregator for ALB latency warning [available values: min, max or avg]"
+  type        = string
+  default     = "avg"
+}
+
 variable "latency_timeframe" {
   description = "Monitor timeframe for ALB latency [available values: `last_#m` (1, 5, 10, 15, or 30), `last_#h` (1, 2, or 4), or `last_1d`]"
   type        = string
@@ -328,4 +334,3 @@ variable "artificial_requests_count" {
   default     = 5
   description = "Number of false requests used to mitigate false positive in case of low trafic"
 }
-
