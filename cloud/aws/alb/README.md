@@ -107,7 +107,9 @@ Creates DataDog monitors with the following checks:
 | <a name="input_latency_threshold_critical"></a> [latency\_threshold\_critical](#input\_latency\_threshold\_critical) | latency critical threshold in seconds | `number` | `3` | no |
 | <a name="input_latency_threshold_warning"></a> [latency\_threshold\_warning](#input\_latency\_threshold\_warning) | latency warning threshold in seconds | `number` | `1` | no |
 | <a name="input_latency_time_aggregator"></a> [latency\_time\_aggregator](#input\_latency\_time\_aggregator) | Monitor aggregator for ALB latency [available values: min, max or avg] | `string` | `"min"` | no |
+| <a name="input_latency_time_aggregator_warning"></a> [latency\_time\_aggregator\_warning](#input\_latency\_time\_aggregator\_warning) | Monitor aggregator for ALB latency warning [available values: min, max or avg] | `string` | `"avg"` | no |
 | <a name="input_latency_timeframe"></a> [latency\_timeframe](#input\_latency\_timeframe) | Monitor timeframe for ALB latency [available values: `last_#m` (1, 5, 10, 15, or 30), `last_#h` (1, 2, or 4), or `last_1d`] | `string` | `"last_5m"` | no |
+| <a name="input_latency_timeframe_warning"></a> [latency\_timeframe\_warning](#input\_latency\_timeframe\_warning) | Monitor timeframe for ALB latency [available values: `last_#m` (1, 5, 10, 15, or 30), `last_#h` (1, 2, or 4), or `last_1d`] | `string` | `"last_10m"` | no |
 | <a name="input_message"></a> [message](#input\_message) | Message sent when a monitor is triggered | `any` | n/a | yes |
 | <a name="input_new_group_delay"></a> [new\_group\_delay](#input\_new\_group\_delay) | Delay in seconds before monitor new resource | `number` | `300` | no |
 | <a name="input_new_host_delay"></a> [new\_host\_delay](#input\_new\_host\_delay) | Delay in seconds before monitor new resource | `number` | `300` | no |
