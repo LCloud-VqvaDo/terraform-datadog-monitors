@@ -62,7 +62,7 @@ EOQ
 
 resource "datadog_monitor" "ALB_latency_warning" {
   count   = var.latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB latency {{#is_alert}}{{{comparator}}} {{threshold}}s ({{value}}s){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}s ({{value}}s){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB latency > ${var.latency_threshold_warning}s"
   message = coalesce(var.latency_message, var.message_warning)
   type    = "query alert"
 
