@@ -292,7 +292,7 @@ EOQ
 
 resource "datadog_monitor" "ALB_httpcode_target_4xx_warning" {
   count   = var.httpcode_target_4xx_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 4xx {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 4xx > ${var.httpcode_target_4xx_threshold_warning}%"
   message = coalesce(var.httpcode_target_4xx_message, var.message_warning)
   type    = "query alert"
 
