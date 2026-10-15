@@ -62,12 +62,12 @@ EOQ
 
 resource "datadog_monitor" "ALB_latency_warning" {
   count   = var.latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB latency {{#is_alert}}{{{comparator}}} {{threshold}}s ({{value}}s){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}s ({{value}}s){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB latency > ${var.latency_threshold_warning}s"
   message = coalesce(var.latency_message, var.message_warning)
   type    = "query alert"
 
   query = <<EOQ
-    ${var.latency_time_aggregator}(${var.latency_timeframe}):
+    ${var.latency_time_aggregator_warning}(${var.latency_timeframe_warning}):
       default(avg:aws.applicationelb.target_response_time.average${module.filter-tags.query_alert} by {region,loadbalancer,service,targetgroup}, 0)
     > ${var.latency_threshold_warning}
 EOQ
@@ -90,7 +90,7 @@ EOQ
 
 resource "datadog_monitor" "ALB_latency_critical" {
   count   = var.latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB latency {{#is_alert}}{{{comparator}}} {{threshold}}s ({{value}}s){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}s ({{value}}s){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB latency > ${var.latency_threshold_critical}s"
   message = coalesce(var.latency_message, var.message)
   type    = "query alert"
 
@@ -234,7 +234,7 @@ EOQ
 
 resource "datadog_monitor" "ALB_httpcode_target_5xx_warning" {
   count   = var.httpcode_target_5xx_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 5xx {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 5xx > ${var.httpcode_target_5xx_threshold_warning}%"
   message = coalesce(var.httpcode_target_5xx_message, var.message_warning)
   type    = "query alert"
 
@@ -263,7 +263,7 @@ EOQ
 
 resource "datadog_monitor" "ALB_httpcode_target_5xx_critical" {
   count   = var.httpcode_target_5xx_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 5xx {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 5xx > ${var.httpcode_target_5xx_threshold_critical}%"
   message = coalesce(var.httpcode_target_5xx_message, var.message)
   type    = "query alert"
 
@@ -292,7 +292,7 @@ EOQ
 
 resource "datadog_monitor" "ALB_httpcode_target_4xx_warning" {
   count   = var.httpcode_target_4xx_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 4xx {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 4xx > ${var.httpcode_target_4xx_threshold_warning}%"
   message = coalesce(var.httpcode_target_4xx_message, var.message_warning)
   type    = "query alert"
 
@@ -321,7 +321,7 @@ EOQ
 
 resource "datadog_monitor" "ALB_httpcode_target_4xx_critical" {
   count   = var.httpcode_target_4xx_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 4xx {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{service.name}}] ALB target HTTP code 4xx > ${var.httpcode_target_4xx_threshold_critical}%"
   message = coalesce(var.httpcode_target_4xx_message, var.message)
   type    = "query alert"
 
