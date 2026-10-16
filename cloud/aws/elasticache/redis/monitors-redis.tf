@@ -1,6 +1,6 @@
 resource "datadog_monitor" "redis_cache_hits_warning" {
   count   = var.cache_hits_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis cache hit ratio {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis cache hit ratio < ${var.cache_hits_threshold_warning}%"
   message = coalesce(var.cache_hits_message, var.message_warning)
   type    = "query alert"
 
@@ -29,7 +29,7 @@ EOQ
 
 resource "datadog_monitor" "redis_cache_hits_critical" {
   count   = var.cache_hits_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis cache hit ratio {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis cache hit ratio < ${var.cache_hits_threshold_critical}%"
   message = coalesce(var.cache_hits_message, var.message)
   type    = "query alert"
 
@@ -58,7 +58,7 @@ EOQ
 
 resource "datadog_monitor" "redis_cpu_high" {
   count   = var.cpu_high_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis CPU {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis CPU > ${var.cpu_high_threshold_critical}%"
   message = coalesce(var.cpu_high_message, var.message)
   type    = "query alert"
 
@@ -82,7 +82,7 @@ EOQ
 
 resource "datadog_monitor" "redis_replication_lag_warning" {
   count   = var.replication_lag_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis replication lag {{#is_alert}}{{{comparator}}} {{threshold}}s ({{value}}s){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}s ({{value}}s){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis replication lag > ${var.replication_lag_threshold_warning}s"
   message = coalesce(var.replication_lag_message, var.message_warning)
   type    = "query alert"
 
@@ -109,7 +109,7 @@ EOQ
 
 resource "datadog_monitor" "redis_replication_lag_critical" {
   count   = var.replication_lag_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis replication lag {{#is_alert}}{{{comparator}}} {{threshold}}s ({{value}}s){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}s ({{value}}s){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{replication_group.name}}] Elasticache redis replication lag > ${var.replication_lag_threshold_critical}s"
   message = coalesce(var.replication_lag_message, var.message)
   type    = "query alert"
 
