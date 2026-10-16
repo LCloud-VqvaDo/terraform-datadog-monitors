@@ -298,7 +298,7 @@ EOQ
 #
 resource "datadog_monitor" "jvm_heap_memory_usage" {
   count   = var.jvm_heap_memory_usage_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM HEAP memory usage {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM HEAP memory usage > ${var.jvm_heap_memory_usage_threshold_critical}%"
   message = coalesce(var.jvm_heap_memory_usage_message, var.message)
   type    = "query alert"
 
@@ -325,7 +325,7 @@ EOQ
 
 resource "datadog_monitor" "jvm_heap_memory_usage_warning" {
   count   = var.jvm_heap_memory_usage_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM HEAP memory usage {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM HEAP memory usage > ${var.jvm_heap_memory_usage_threshold_warning}%"
   message = coalesce(var.jvm_heap_memory_usage_message, var.message_warning)
   type    = "query alert"
 
@@ -355,7 +355,7 @@ EOQ
 #
 resource "datadog_monitor" "jvm_memory_young_usage" {
   count   = var.jvm_memory_young_usage_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM memory Young usage {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM memory Young usage > ${var.jvm_memory_young_usage_threshold_critical}%"
   message = coalesce(var.jvm_memory_young_usage_message, var.message)
   type    = "query alert"
 
@@ -382,7 +382,7 @@ EOQ
 
 resource "datadog_monitor" "jvm_memory_young_usage_warning" {
   count   = var.jvm_memory_young_usage_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM memory Young usage {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM memory Young usage > ${var.jvm_memory_young_usage_threshold_warning}%"
   message = coalesce(var.jvm_memory_young_usage_message, var.message_warning)
   type    = "query alert"
 
@@ -412,7 +412,7 @@ EOQ
 #
 resource "datadog_monitor" "jvm_memory_old_usage" {
   count   = var.jvm_memory_old_usage_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM memory Old usage {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM memory Old usage > ${var.jvm_memory_old_usage_threshold_critical}%"
   message = coalesce(var.jvm_memory_old_usage_message, var.message)
   type    = "query alert"
 
@@ -439,7 +439,7 @@ EOQ
 
 resource "datadog_monitor" "jvm_memory_old_usage_warning" {
   count   = var.jvm_memory_old_usage_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM memory Old usage {{#is_alert}}{{{comparator}}} {{threshold}}% ({{value}}%){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}% ({{value}}%){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch JVM memory Old usage > ${var.jvm_memory_old_usage_threshold_warning}%"
   message = coalesce(var.jvm_memory_old_usage_message, var.message_warning)
   type    = "query alert"
 
@@ -469,7 +469,7 @@ EOQ
 #
 resource "datadog_monitor" "jvm_gc_old_collection_latency" {
   count   = var.jvm_gc_old_collection_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average Old-generation garbage collections latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average Old-generation garbage collections latency > ${var.jvm_gc_old_collection_latency_threshold_critical}ms"
   message = coalesce(var.jvm_gc_old_collection_latency_message, var.message)
   type    = "query alert"
 
@@ -499,7 +499,7 @@ EOQ
 
 resource "datadog_monitor" "jvm_gc_old_collection_latency_warning" {
   count   = var.jvm_gc_old_collection_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average Old-generation garbage collections latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average Old-generation garbage collections latency > ${var.jvm_gc_old_collection_latency_threshold_warning}ms"
   message = coalesce(var.jvm_gc_old_collection_latency_message, var.message_warning)
   type    = "query alert"
 
@@ -532,7 +532,7 @@ EOQ
 #
 resource "datadog_monitor" "jvm_gc_young_collection_latency" {
   count   = var.jvm_gc_young_collection_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average Young-generation garbage collections latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average Young-generation garbage collections latency > ${var.jvm_gc_young_collection_latency_threshold_critical}ms"
   message = coalesce(var.jvm_gc_young_collection_latency_message, var.message)
   type    = "query alert"
 
@@ -562,7 +562,7 @@ EOQ
 
 resource "datadog_monitor" "jvm_gc_young_collection_latency_warning" {
   count   = var.jvm_gc_young_collection_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average Young-generation garbage collections latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average Young-generation garbage collections latency > ${var.jvm_gc_young_collection_latency_threshold_warning}ms"
   message = coalesce(var.jvm_gc_young_collection_latency_message, var.message_warning)
   type    = "query alert"
 
@@ -595,7 +595,7 @@ EOQ
 #
 resource "datadog_monitor" "indexing_latency" {
   count   = var.indexing_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average indexing latency by document {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average indexing latency by document > ${var.indexing_latency_threshold_critical}ms"
   message = coalesce(var.indexing_latency_message, var.message)
   type    = "query alert"
 
@@ -626,7 +626,7 @@ EOQ
 
 resource "datadog_monitor" "indexing_latency_warning" {
   count   = var.indexing_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average indexing latency by document {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average indexing latency by document > ${var.indexing_latency_threshold_warning}ms"
   message = coalesce(var.indexing_latency_message, var.message_warning)
   type    = "query alert"
 
@@ -660,7 +660,7 @@ EOQ
 #
 resource "datadog_monitor" "flush_latency" {
   count   = var.flush_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average index flushing to disk latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average index flushing to disk latency > ${var.flush_latency_threshold_critical}ms"
   message = coalesce(var.flush_latency_message, var.message)
   type    = "query alert"
 
@@ -691,7 +691,7 @@ EOQ
 
 resource "datadog_monitor" "flush_latency_warning" {
   count   = var.flush_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average index flushing to disk latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average index flushing to disk latency > ${var.flush_latency_threshold_warning}ms"
   message = coalesce(var.flush_latency_message, var.message_warning)
   type    = "query alert"
 
@@ -808,7 +808,7 @@ EOQ
 #
 resource "datadog_monitor" "search_query_latency" {
   count   = var.search_query_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average search query latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average search query latency > ${var.search_query_latency_threshold_critical}ms"
   message = coalesce(var.search_query_latency_message, var.message)
   type    = "query alert"
 
@@ -839,7 +839,7 @@ EOQ
 
 resource "datadog_monitor" "search_query_latency_warning" {
   count   = var.search_query_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average search query latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average search query latency > ${var.search_query_latency_threshold_warning}ms"
   message = coalesce(var.search_query_latency_message, var.message_warning)
   type    = "query alert"
 
@@ -873,7 +873,7 @@ EOQ
 #
 resource "datadog_monitor" "fetch_latency" {
   count   = var.fetch_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average search fetch latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average search fetch latency > ${var.fetch_latency_threshold_critical}ms"
   message = coalesce(var.fetch_latency_message, var.message)
   type    = "query alert"
 
@@ -904,7 +904,7 @@ EOQ
 
 resource "datadog_monitor" "fetch_latency_warning" {
   count   = var.fetch_latency_enabled == "true" ? 1 : 0
-  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average search fetch latency {{#is_alert}}{{{comparator}}} {{threshold}}ms ({{value}}ms){{/is_alert}}{{#is_warning}}{{{comparator}}} {{warn_threshold}}ms ({{value}}ms){{/is_warning}}"
+  name    = "${var.prefix_slug == "" ? "" : "[${var.prefix_slug}]"}[${var.environment}] [{{deployment_name.name}}] Elasticsearch average search fetch latency > ${var.fetch_latency_threshold_warning}ms"
   message = coalesce(var.fetch_latency_message, var.message_warning)
   type    = "query alert"
 
